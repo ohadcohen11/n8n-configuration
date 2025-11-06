@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { N8nWorkflow } from '@/types/n8n';
+import { NodeParameterDisplay } from '@/components/NodeTemplates';
 
 export default function WorkflowEditPage() {
   const router = useRouter();
@@ -267,19 +268,8 @@ export default function WorkflowEditPage() {
                     </button>
 
                     {expandedNodes.has(node.id) && (
-                      <div className="mt-3 space-y-2 pl-6">
-                        {Object.keys(node.parameters).length === 0 ? (
-                          <p className="text-sm text-gray-400 italic">(no parameters)</p>
-                        ) : (
-                          Object.entries(node.parameters).map(([key, value]) => (
-                            <div key={key} className="text-sm">
-                              <p className="font-medium text-gray-600 dark:text-gray-400 mb-1">
-                                {key}:
-                              </p>
-                              <div className="ml-3">{renderValue(value)}</div>
-                            </div>
-                          ))
-                        )}
+                      <div className="mt-3">
+                        <NodeParameterDisplay node={node} renderValue={renderValue} />
                       </div>
                     )}
                   </div>
